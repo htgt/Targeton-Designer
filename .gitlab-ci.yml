@@ -14,7 +14,7 @@ prepare_data:
   stage: prepare
   script:
     - if [[ ! -f kmer/homo_sapiens_11.list ]] && [[ ! -f kmer/homo_sapiens_16.list ]]; then
-        make download_kmer
+          make download_kmer
       fi
 
 docker-build:
