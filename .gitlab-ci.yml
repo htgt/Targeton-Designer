@@ -2,6 +2,22 @@ stages:
   - .pre
   - test
 
+
+cache:
+  key: kmer-files
+  paths:
+    - kmer/
+
+
+prepare_data:
+  stage: prepare
+  script:
+    - make download-kmers
+  artifacts:
+    paths:
+      - kmer/homo_sapiens_16.list
+      - kmer/homo_sapiens_11.list
+
 docker-build:
   # Use the official docker image.
   image: docker:23.0.6
@@ -44,7 +60,7 @@ test:
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   before_script:
-    - make download-kmers
+    - prepare_data
   script:
     - make test
   dependencies:
